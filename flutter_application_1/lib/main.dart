@@ -1,121 +1,284 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // Tambahan untuk Firebase
 
-void main() {
-  runApp(const MyApp());
+// Import Firebase Options hasil konfigurasi
+import 'firebase_options.dart';
+
+// Import Acara-acara sebelumnya
+import 'acara15/acara15.dart';
+import 'acara16/Telegram.dart';
+import 'acara17/acara17.dart';
+import 'acara18/acara18.dart';
+import 'acara19/acara19.dart';
+import 'acara20/acara20.dart';
+import 'acara21/acara21.dart';
+import 'acara22/acara22.dart';
+import 'acara23/acara23.dart';
+import 'acara25/acara25.dart'; // Acara 25-28
+import 'acara29/acara29.dart'; // Acara 29-32 (GetX)
+import 'acara34/get_data.dart'; // Acara 34 (REST API II)
+
+// CUKUP IMPORT ACARA 35 SAJA
+import 'acara35/acara35.dart'; // Acara 35 & 36 (REST API III & IV)
+
+// Import Acara 37 & 38 (Gabungan)
+import 'acara37-38/auth.dart'; 
+
+// Import Acara 40 (MovieDB API)
+import 'acara40/home_screen.dart'; 
+
+// Import Acara 41-44 (CRUD FLUTTER)
+import 'acara41_44/main_crud.dart'; // TAMBAHKAN INI
+
+void main() async { 
+  // Inisialisasi Firebase dengan opsi multi-platform (HP & Laptop)
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); 
+  
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Menu Praktikum',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: MainMenu(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('Pilih Menu Acara'),
+        centerTitle: true,
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ==================== ACARA 15 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara15Screen()),
+                    ),
+                    child: Text('Buka Acara 15 (Widget Dasar)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 16 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Telegram()),
+                    ),
+                    child: Text('Buka Acara 16 (Telegram)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 17 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara17()),
+                    ),
+                    child: Text('Buka Acara 17 (Flutter Styling)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 18 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara18Screen()),
+                    ),
+                    child: Text('Buka Acara 18 (Belajar Routing)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 19 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara19App()),
+                    ),
+                    child: Text('Buka Acara 19 (Route Generator)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 20 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara20Screen()),
+                    ),
+                    child: Text('Buka Acara 20 (Drawer & Bottom Tab)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 21 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara21Screen()),
+                    ),
+                    child: Text('Buka Acara 21 (Gradient)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 22 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara22Screen()),
+                    ),
+                    child: Text('Buka Acara 22 (PageView with Images)'),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // ==================== ACARA 23 ====================
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara23Screen()),
+                    ),
+                    child: Text('Buka Acara 23 (PageView & Dropdown)'),
+                  ),
+                ),
+
+                // ==================== ACARA 25-28 ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => BelajarForm()),
+                    ),
+                    child: Text('Buka Acara 25-28 (Semua Form)'),
+                  ),
+                ),
+
+                // ==================== ACARA 29-32 (GetX) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => Acara29Screen()),
+                    ),
+                    child: Text('Buka Acara 29-32 (GetX)'),
+                  ),
+                ),
+
+                // ==================== ACARA 34 (REST API II) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => GetDataScreen()),
+                    ),
+                    child: Text('Buka Acara 34 (REST API II - Get Data)'),
+                  ),
+                ),
+
+                // ==================== ACARA 35 & 36 (REST API III & IV) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    // Memanggil class Acara35
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const Acara35()),
+                    ),
+                    child: Text('Buka Acara 35 & 36 (MovieDB API)'),
+                  ),
+                ),
+
+                // ==================== ACARA 37 & 38 (FIREBASE AUTH + API) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const Acara37AuthScreen()),
+                    ),
+                    child: Text('Buka Acara 37 & 38 (Auth + API)'),
+                  ),
+                ),
+
+                // ==================== ACARA 40 (MOVIEDB API) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const HomeScreenMovieDB()),
+                    ),
+                    child: Text('Buka Acara 40 (MovieDB JSON API)'),
+                  ),
+                ),
+
+                // ==================== ACARA 41-44 (CRUD FLUTTER) ====================
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MainCrudScreen()),
+                    ),
+                    child: Text('Buka Acara 41-44 (CRUD Data)'),
+                  ),
+                ),
+                SizedBox(height: 32), // Spasi paling bawah agar rapi
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
